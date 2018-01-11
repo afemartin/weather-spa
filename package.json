@@ -3,11 +3,15 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "standard"
   },
   "dependencies": {
     "next": "4.2.2",
     "react": "16.2.0",
     "react-dom": "16.2.0"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3"
   }
 }
