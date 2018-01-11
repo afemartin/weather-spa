@@ -4,7 +4,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "test": "standard"
+    "test": "standard && jest"
   },
   "dependencies": {
     "next": "4.2.2",
@@ -12,6 +12,8 @@
     "react-dom": "16.2.0"
   },
   "devDependencies": {
+    "jest": "^22.0.6",
+    "react-test-renderer": "^16.2.0",
     "standard": "^10.0.3"
   }
 }
