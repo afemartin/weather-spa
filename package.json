@@ -9,7 +9,8 @@
   "dependencies": {
     "next": "4.2.2",
     "react": "16.2.0",
-    "react-dom": "16.2.0"
+    "react-dom": "16.2.0",
+    "semantic-ui-react": "^0.77.2"
   },
   "devDependencies": {
     "jest": "^22.0.6",
