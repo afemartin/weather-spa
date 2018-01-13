@@ -1,16 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`(Page) Index renders correctly 1`] = `
-<div>
-  <h1>
+<div
+  className="jsx-426951815 container"
+>
+  <h1
+    className="jsx-426951815 title"
+  >
     Paidy Interview - Weather SPA
   </h1>
-  <p>
-    To get started, edit 
-    <code>
-      pages/index.js
-    </code>
-     and save to reload.
+  <p
+    className="jsx-426951815"
+  >
+    Location
   </p>
+  <div
+    className="ui action input"
+  >
+    <input
+      disabled={undefined}
+      onChange={[Function]}
+      placeholder="Eg. Tokyo"
+      tabIndex={undefined}
+      type="text"
+    />
+    <button
+      className="ui button"
+      disabled={undefined}
+      onClick={[Function]}
+      role="button"
+      tabIndex={undefined}
+    >
+      Search
+    </button>
+  </div>
+  <div
+    className="ui five cards"
+  />
 </div>
 `;
