@@ -2,40 +2,94 @@
 
 exports[`(Page) Index renders correctly 1`] = `
 <div
-  className="jsx-426951815 container"
+  className="jsx-3953651722 container"
 >
   <h1
-    className="jsx-426951815 title"
+    className="jsx-3953651722 title"
   >
     Paidy Interview - Weather SPA
   </h1>
-  <p
-    className="jsx-426951815"
-  >
-    Location
-  </p>
   <div
-    className="ui action input"
+    className="jsx-3953651722 unit"
   >
-    <input
-      disabled={undefined}
-      onChange={[Function]}
-      placeholder="Eg. Tokyo"
-      tabIndex={undefined}
-      type="text"
-    />
-    <button
-      className="ui button"
-      disabled={undefined}
-      onClick={[Function]}
-      role="button"
-      tabIndex={undefined}
+    <div
+      className="ui buttons"
     >
-      Search
-    </button>
+      <button
+        className="ui blue button"
+        disabled={undefined}
+        onClick={[Function]}
+        role="button"
+        tabIndex={undefined}
+      >
+        Fahrenheit
+      </button>
+      <div
+        className="or"
+        data-text={undefined}
+      />
+      <button
+        className="ui button"
+        disabled={undefined}
+        onClick={[Function]}
+        role="button"
+        tabIndex={undefined}
+      >
+        Celsius
+      </button>
+    </div>
   </div>
   <div
-    className="ui five cards"
-  />
+    className="jsx-3953651722 location"
+  >
+    <p
+      className="jsx-3953651722"
+    >
+      Location
+    </p>
+    <div
+      className="ui action input"
+    >
+      <input
+        disabled={undefined}
+        onChange={[Function]}
+        placeholder="Eg. Tokyo"
+        tabIndex={undefined}
+        type="text"
+      />
+      <button
+        className="ui button"
+        disabled={undefined}
+        onClick={[Function]}
+        role="button"
+        tabIndex={undefined}
+      >
+        Search
+      </button>
+    </div>
+  </div>
+  <div
+    className="jsx-3953651722 forecast"
+  >
+    <div
+      className="ui five cards"
+    />
+  </div>
+  <div
+    className="jsx-3953651722 footer"
+  >
+    <a
+      className="jsx-3953651722"
+      href="https://www.yahoo.com/?ilc=401"
+      target="_blank"
+    >
+      <img
+        className="jsx-3953651722"
+        height="29"
+        src="https://poweredby.yahoo.com/purple.png"
+        width="134"
+      />
+    </a>
+  </div>
 </div>
 `;
