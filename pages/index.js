@@ -5,6 +5,8 @@ import url from 'url'
 
 import { Button, Card, Input } from 'semantic-ui-react'
 
+import WeatherIcon from '../components/weatherIcon'
+
 export default class Index extends React.Component {
   constructor (props) {
     super(props)
@@ -83,6 +85,7 @@ export default class Index extends React.Component {
             {
               this.state.forecast.map(dayForecast => (
                 <Card>
+                  <WeatherIcon code={dayForecast.code} text={dayForecast.text} />
                   <Card.Content>
                     <Card.Header>
                       { dayForecast.text }
@@ -112,9 +115,8 @@ export default class Index extends React.Component {
         </div>
         <style jsx>{`
           .container {
-            width: 1200px;
             margin: 0 auto;
-            padding: 20px 0;
+            padding: 20px;
           }
           .title {
             margin-bottom: 20px;
