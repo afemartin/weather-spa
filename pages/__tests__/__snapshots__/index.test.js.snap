@@ -2,89 +2,134 @@
 
 exports[`(Page) Index renders correctly 1`] = `
 <div
-  className="jsx-3961472654 container"
+  className="jsx-1725421838 container"
 >
-  <h1
-    className="jsx-3961472654 title"
-  >
-    Paidy Interview - Weather SPA
-  </h1>
   <div
-    className="jsx-3961472654 unit"
+    className="jsx-1725421838 header"
   >
-    <div
-      className="ui buttons"
+    <h1
+      className="jsx-1725421838 title"
     >
-      <button
-        className="ui blue button"
-        disabled={undefined}
-        onClick={[Function]}
-        role="button"
-        tabIndex={undefined}
-      >
-        Fahrenheit
-      </button>
+      Weather SPA
+    </h1>
+    <div
+      className="jsx-1725421838 unit"
+    >
       <div
-        className="or"
-        data-text={undefined}
-      />
-      <button
-        className="ui button"
-        disabled={undefined}
-        onClick={[Function]}
-        role="button"
-        tabIndex={undefined}
+        className="ui buttons"
       >
-        Celsius
-      </button>
+        <button
+          className="ui blue button"
+          disabled={undefined}
+          onClick={[Function]}
+          role="button"
+          tabIndex={undefined}
+        >
+          Fahrenheit
+        </button>
+        <div
+          className="or"
+          data-text={undefined}
+        />
+        <button
+          className="ui button"
+          disabled={undefined}
+          onClick={[Function]}
+          role="button"
+          tabIndex={undefined}
+        >
+          Celsius
+        </button>
+      </div>
     </div>
   </div>
   <div
-    className="jsx-3961472654 location"
+    className="jsx-1725421838 location"
   >
-    <p
-      className="jsx-3961472654"
+    <h2
+      className="jsx-1725421838"
     >
       Location
-    </p>
-    <div
-      className="ui action input"
+    </h2>
+    <form
+      action={undefined}
+      className="ui form"
+      onSubmit={[Function]}
     >
-      <input
-        disabled={undefined}
-        onChange={[Function]}
-        placeholder="Eg. Tokyo"
-        tabIndex={undefined}
-        type="text"
-      />
-      <button
-        className="ui button"
-        disabled={undefined}
-        onClick={[Function]}
-        role="button"
-        tabIndex={undefined}
+      <div
+        className="field"
       >
-        Search
-      </button>
+        <div
+          className="ui icon input"
+        >
+          <input
+            disabled={undefined}
+            name="location"
+            onChange={[Function]}
+            placeholder="Eg. Tokyo"
+            tabIndex={undefined}
+            type="text"
+          />
+          <i
+            aria-hidden="true"
+            className="search icon"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div
+    className="jsx-1725421838 data"
+  >
+    <div
+      className="ui grid"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="six wide computer sixteen wide mobile six wide tablet column"
+        >
+          <div
+            className="jsx-1725421838 condition"
+          >
+            <h2
+              className="jsx-1725421838"
+            >
+              Condition
+            </h2>
+          </div>
+        </div>
+        <div
+          className="ten wide computer sixteen wide mobile ten wide tablet column"
+        >
+          <div
+            className="jsx-1725421838 forecast"
+          >
+            <h2
+              className="jsx-1725421838"
+            >
+              Forecast
+            </h2>
+            <div
+              className="ui celled list"
+              role="list"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div
-    className="jsx-3961472654 forecast"
-  >
-    <div
-      className="ui five cards"
-    />
-  </div>
-  <div
-    className="jsx-3961472654 footer"
+    className="jsx-1725421838 footer"
   >
     <a
-      className="jsx-3961472654"
+      className="jsx-1725421838"
       href="https://www.yahoo.com/?ilc=401"
       target="_blank"
     >
       <img
-        className="jsx-3961472654"
+        className="jsx-1725421838"
         height="29"
         src="https://poweredby.yahoo.com/purple.png"
         width="134"
