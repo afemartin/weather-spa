@@ -63,6 +63,7 @@ exports[`(Page) Index renders correctly 1`] = `
           className="ui icon input"
         >
           <input
+            defaultValue={null}
             disabled={undefined}
             name="location"
             onChange={[Function]}

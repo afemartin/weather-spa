@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
 import url from 'url'
 
@@ -8,14 +9,52 @@ import { Button, Card, Grid, Input, Form, List, Message } from 'semantic-ui-reac
 import WeatherIcon from '../components/weatherIcon'
 
 export default class Index extends React.Component {
+  static async getInitialProps ({ query }) {
+    const location = query.q
+    const apiUrlObject = {
+      protocol: 'https',
+      hostname: 'query.yahooapis.com',
+      pathname: 'v1/public/yql',
+      query: {
+        q: `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${location}")`,
+        format: 'json',
+        env: 'http://datatables.org/alltables.env'
+      }
+    }
+    const res = await fetch(url.format(apiUrlObject))
+    const data = await res.json()
+    if (data.query.results) {
+      return {
+        location: location,
+        data: {
+          location: data.query.results.channel.location,
+          astronomy: data.query.results.channel.astronomy,
+          atmosphere: data.query.results.channel.atmosphere,
+          wind: data.query.results.channel.wind,
+          condition: data.query.results.channel.item.condition,
+          forecast: data.query.results.channel.item.forecast,
+          geolocation: {
+            lat: data.query.results.channel.item.lat,
+            lng: data.query.results.channel.item.long
+          }
+        },
+        loading: false
+      }
+    } else {
+      return {
+        location: location,
+        data: {},
+        loading: false,
+        error: `No results found for location search "${location}"`
+      }
+    }
+  }
+
   constructor (props) {
     super(props)
     this.state = {
       unit: 'fahrenheit',
-      location: '',
-      data: {},
-      loading: false,
-      error: null
+      location: props.location || ''
     }
     this.onLocationChange = this.onLocationChange.bind(this)
     this.onLocationSubmit = this.onLocationSubmit.bind(this)
@@ -31,47 +70,10 @@ export default class Index extends React.Component {
     if (!this.state.location) {
       return
     }
-    console.log(`Search weather at "${this.state.location}" using Yahoo Weather API`)
-    const apiUrlObject = {
-      protocol: 'https',
-      hostname: 'query.yahooapis.com',
-      pathname: 'v1/public/yql',
-      query: {
-        q: `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${this.state.location}")`,
-        format: 'json',
-        env: 'http://datatables.org/alltables.env'
-      }
-    }
-    this.setState({
-      loading: true
+    Router.push({
+      pathname: '/',
+      query: { q: this.state.location }
     })
-    fetch(url.format(apiUrlObject))
-      .then(response => response.json())
-      .then(data => {
-        if (data.query.results) {
-          this.setState({
-            data: {
-              location: data.query.results.channel.location,
-              astronomy: data.query.results.channel.astronomy,
-              atmosphere: data.query.results.channel.atmosphere,
-              wind: data.query.results.channel.wind,
-              condition: data.query.results.channel.item.condition,
-              forecast: data.query.results.channel.item.forecast,
-              geolocation: {
-                lat: data.query.results.channel.item.lat,
-                lng: data.query.results.channel.item.long
-              }
-            },
-            loading: false
-          })
-        } else {
-          this.setState({
-            forecast: [],
-            loading: false,
-            error: `No results found for location search "${this.state.location}"`
-          })
-        }
-      })
   }
 
   onChangeTempUnit (unit) {
@@ -103,15 +105,15 @@ export default class Index extends React.Component {
         </div>
         <div className='location'>
           <h2>Location</h2>
-          <Form loading={this.state.loading} onSubmit={this.onLocationSubmit}>
+          <Form loading={this.props.loading} onSubmit={this.onLocationSubmit}>
             <Form.Field>
-              <Input name='location' placeholder='Eg. Tokyo' icon='search' onChange={this.onLocationChange} />
+              <Input name='location' placeholder='Eg. Tokyo' icon='search' defaultValue={this.props.location} onChange={this.onLocationChange} />
             </Form.Field>
           </Form>
         </div>
         <div className='data'>
           {
-            this.state.error && <Message negative>{this.state.error}</Message>
+            this.props.error && <Message negative>{this.props.error}</Message>
           }
           <Grid>
             <Grid.Row>
@@ -119,23 +121,23 @@ export default class Index extends React.Component {
                 <div className='condition'>
                   <h2>Condition</h2>
                   {
-                    this.state.data.condition && (
+                    this.props.data.condition && (
                       <Card>
                         <Card.Content>
                           <Card.Header>
-                            { this.state.data.condition.text }
+                            { this.props.data.condition.text }
                           </Card.Header>
-                          <WeatherIcon code={this.state.data.condition.code} text={this.state.data.condition.text} />
+                          <WeatherIcon code={this.props.data.condition.code} text={this.props.data.condition.text} />
                           <Card.Meta>
                             <span className='date'>
-                              { this.state.data.condition.date }
+                              { this.props.data.condition.date }
                             </span>
                           </Card.Meta>
                           <Card.Description>
                             {
                               this.state.unit === 'fahrenheit'
-                                ? <span>{ this.state.data.condition.temp }°F</span>
-                                : <span>{ this.FtoC(this.state.data.condition.temp) }°C</span>
+                                ? <span>{ this.props.data.condition.temp }°F</span>
+                                : <span>{ this.FtoC(this.props.data.condition.temp) }°C</span>
                             }
                           </Card.Description>
                         </Card.Content>
@@ -149,7 +151,7 @@ export default class Index extends React.Component {
                   <h2>Forecast</h2>
                   <List celled>
                     {
-                      this.state.data.forecast && this.state.data.forecast.map(dayForecast => (
+                      this.props.data.forecast && this.props.data.forecast.map(dayForecast => (
                         <List.Item key={dayForecast.date} style={{ padding: '5px' }} >
                           <List.Content floated='right'>
                             <div style={{ width: '35px', margin: '0 auto' }}>
