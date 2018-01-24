@@ -125,11 +125,11 @@ export default class Index extends React.Component {
           }
           <Grid>
             <Grid.Row>
-              <Grid.Column mobile={16} tablet={6} computer={6}>
-                <div className='condition'>
-                  <h2>Condition</h2>
-                  {
-                    this.props.data.condition && (
+              {
+                this.props.data.condition && (
+                  <Grid.Column mobile={16} tablet={6} computer={6}>
+                    <div className='condition'>
+                      <h2>Condition</h2>
                       <Card>
                         <Card.Content>
                           <Card.Header>
@@ -150,39 +150,43 @@ export default class Index extends React.Component {
                           </Card.Description>
                         </Card.Content>
                       </Card>
-                    )
-                  }
-                </div>
-              </Grid.Column>
-              <Grid.Column mobile={16} tablet={10} computer={10}>
-                <div className='forecast'>
-                  <h2>Forecast</h2>
-                  <List celled>
-                    {
-                      this.props.data.forecast && this.props.data.forecast.map(dayForecast => (
-                        <List.Item key={dayForecast.date} style={{ padding: '5px' }} >
-                          <List.Content floated='right'>
-                            <div style={{ width: '35px', margin: '0 auto' }}>
-                              <WeatherIcon code={dayForecast.code} text={dayForecast.text} />
-                            </div>
-                            <div>
-                              {
-                                this.state.unit === 'fahrenheit'
-                                  ? <span>{ dayForecast.high }°F • { dayForecast.low }°F</span>
-                                  : <span>{ this.FtoC(dayForecast.high) }°C • { this.FtoC(dayForecast.low) }°C</span>
-                              }
-                            </div>
-                          </List.Content>
-                          <List.Content>
-                            <p className='date'>{ dayForecast.date }</p>
-                            <p>{ dayForecast.text }</p>
-                          </List.Content>
-                        </List.Item>
-                      ))
-                    }
-                  </List>
-                </div>
-              </Grid.Column>
+                    </div>
+                  </Grid.Column>
+                )
+              }
+              {
+                this.props.data.forecast && Array.isArray(this.props.data.forecast) && (
+                  <Grid.Column mobile={16} tablet={10} computer={10}>
+                    <div className='forecast'>
+                      <h2>Forecast</h2>
+                      <List celled>
+                        {
+                          this.props.data.forecast.map(dayForecast => (
+                            <List.Item key={dayForecast.date} style={{ padding: '5px' }} >
+                              <List.Content floated='right'>
+                                <div style={{ width: '35px', margin: '0 auto' }}>
+                                  <WeatherIcon code={dayForecast.code} text={dayForecast.text} />
+                                </div>
+                                <div>
+                                  {
+                                    this.state.unit === 'fahrenheit'
+                                      ? <span>{ dayForecast.high }°F • { dayForecast.low }°F</span>
+                                      : <span>{ this.FtoC(dayForecast.high) }°C • { this.FtoC(dayForecast.low) }°C</span>
+                                  }
+                                </div>
+                              </List.Content>
+                              <List.Content>
+                                <p className='date'>{ dayForecast.date }</p>
+                                <p>{ dayForecast.text }</p>
+                              </List.Content>
+                            </List.Item>
+                          ))
+                        }
+                      </List>
+                    </div>
+                  </Grid.Column>
+                )
+              }
             </Grid.Row>
           </Grid>
         </div>

@@ -87,38 +87,7 @@ exports[`(Page) Index renders correctly 1`] = `
     >
       <div
         className="row"
-      >
-        <div
-          className="six wide computer sixteen wide mobile six wide tablet column"
-        >
-          <div
-            className="jsx-1725421838 condition"
-          >
-            <h2
-              className="jsx-1725421838"
-            >
-              Condition
-            </h2>
-          </div>
-        </div>
-        <div
-          className="ten wide computer sixteen wide mobile ten wide tablet column"
-        >
-          <div
-            className="jsx-1725421838 forecast"
-          >
-            <h2
-              className="jsx-1725421838"
-            >
-              Forecast
-            </h2>
-            <div
-              className="ui celled list"
-              role="list"
-            />
-          </div>
-        </div>
-      </div>
+      />
     </div>
   </div>
   <div
