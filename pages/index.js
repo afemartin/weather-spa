@@ -11,6 +11,14 @@ import WeatherIcon from '../components/weatherIcon'
 export default class Index extends React.Component {
   static async getInitialProps ({ query }) {
     const location = query.q
+    if (!location) {
+      return {
+        location: null,
+        data: {},
+        loading: false,
+        error: null
+      }
+    }
     const apiUrlObject = {
       protocol: 'https',
       hostname: 'query.yahooapis.com',
