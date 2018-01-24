@@ -2,18 +2,18 @@
 
 exports[`(Page) Index renders correctly 1`] = `
 <div
-  className="jsx-1725421838 container"
+  className="jsx-13630466 container"
 >
   <div
-    className="jsx-1725421838 header"
+    className="jsx-13630466 header"
   >
     <h1
-      className="jsx-1725421838 title"
+      className="jsx-13630466 title"
     >
       Weather SPA
     </h1>
     <div
-      className="jsx-1725421838 unit"
+      className="jsx-13630466 tempUnit"
     >
       <div
         className="ui buttons"
@@ -44,10 +44,10 @@ exports[`(Page) Index renders correctly 1`] = `
     </div>
   </div>
   <div
-    className="jsx-1725421838 location"
+    className="jsx-13630466 location"
   >
     <h2
-      className="jsx-1725421838"
+      className="jsx-13630466"
     >
       Location
     </h2>
@@ -80,7 +80,7 @@ exports[`(Page) Index renders correctly 1`] = `
     </form>
   </div>
   <div
-    className="jsx-1725421838 data"
+    className="jsx-13630466 data"
   >
     <div
       className="ui grid"
@@ -91,15 +91,15 @@ exports[`(Page) Index renders correctly 1`] = `
     </div>
   </div>
   <div
-    className="jsx-1725421838 footer"
+    className="jsx-13630466 footer"
   >
     <a
-      className="jsx-1725421838"
+      className="jsx-13630466"
       href="https://www.yahoo.com/?ilc=401"
       target="_blank"
     >
       <img
-        className="jsx-1725421838"
+        className="jsx-13630466"
         height="29"
         src="https://poweredby.yahoo.com/purple.png"
         width="134"

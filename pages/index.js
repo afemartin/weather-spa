@@ -4,9 +4,12 @@ import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
 import url from 'url'
 
-import { Button, Card, Grid, Input, Form, List, Message } from 'semantic-ui-react'
+import { Button, Grid, Input, Form, Message } from 'semantic-ui-react'
 
-import WeatherIcon from '../components/weatherIcon'
+import Condition from '../components/condition'
+import Forecast from '../components/forecast'
+
+import { TEMPERATURE_UNIT_CELSIUS, TEMPERATURE_UNIT_FAHRENHEIT } from '../constants'
 
 export default class Index extends React.Component {
   static async getInitialProps ({ query }) {
@@ -61,7 +64,7 @@ export default class Index extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      unit: 'fahrenheit',
+      tempUnit: TEMPERATURE_UNIT_FAHRENHEIT,
       location: props.location || ''
     }
     this.onLocationChange = this.onLocationChange.bind(this)
@@ -86,7 +89,7 @@ export default class Index extends React.Component {
 
   onChangeTempUnit (unit) {
     this.setState({
-      unit: unit
+      tempUnit: unit
     })
   }
 
@@ -103,11 +106,11 @@ export default class Index extends React.Component {
         </Head>
         <div className='header'>
           <h1 className='title'>Weather SPA</h1>
-          <div className='unit'>
+          <div className='tempUnit'>
             <Button.Group>
-              <Button color={this.state.unit === 'fahrenheit' ? 'blue' : null} onClick={() => this.onChangeTempUnit('fahrenheit')}>Fahrenheit</Button>
+              <Button color={this.state.tempUnit === TEMPERATURE_UNIT_FAHRENHEIT ? 'blue' : null} onClick={() => this.onChangeTempUnit(TEMPERATURE_UNIT_FAHRENHEIT)}>Fahrenheit</Button>
               <Button.Or />
-              <Button color={this.state.unit === 'celsius' ? 'blue' : null} onClick={() => this.onChangeTempUnit('celsius')}>Celsius</Button>
+              <Button color={this.state.tempUnit === TEMPERATURE_UNIT_CELSIUS ? 'blue' : null} onClick={() => this.onChangeTempUnit(TEMPERATURE_UNIT_CELSIUS)}>Celsius</Button>
             </Button.Group>
           </div>
         </div>
@@ -120,72 +123,20 @@ export default class Index extends React.Component {
           </Form>
         </div>
         <div className='data'>
-          {
-            this.props.error && <Message negative>{this.props.error}</Message>
+          { this.props.error &&
+            <Message negative>{this.props.error}</Message>
           }
           <Grid>
             <Grid.Row>
-              {
-                this.props.data.condition && (
-                  <Grid.Column mobile={16} tablet={6} computer={6}>
-                    <div className='condition'>
-                      <h2>Condition</h2>
-                      <Card>
-                        <Card.Content>
-                          <Card.Header>
-                            { this.props.data.condition.text }
-                          </Card.Header>
-                          <WeatherIcon code={this.props.data.condition.code} text={this.props.data.condition.text} />
-                          <Card.Meta>
-                            <span className='date'>
-                              { this.props.data.condition.date }
-                            </span>
-                          </Card.Meta>
-                          <Card.Description>
-                            {
-                              this.state.unit === 'fahrenheit'
-                                ? <span>{ this.props.data.condition.temp }°F</span>
-                                : <span>{ this.FtoC(this.props.data.condition.temp) }°C</span>
-                            }
-                          </Card.Description>
-                        </Card.Content>
-                      </Card>
-                    </div>
-                  </Grid.Column>
-                )
+              { this.props.data.condition &&
+                <Grid.Column mobile={16} tablet={6} computer={6}>
+                  <Condition condition={this.props.data.condition} tempUnit={this.state.tempUnit} />
+                </Grid.Column>
               }
-              {
-                this.props.data.forecast && Array.isArray(this.props.data.forecast) && (
-                  <Grid.Column mobile={16} tablet={10} computer={10}>
-                    <div className='forecast'>
-                      <h2>Forecast</h2>
-                      <List celled>
-                        {
-                          this.props.data.forecast.map(dayForecast => (
-                            <List.Item key={dayForecast.date} style={{ padding: '5px' }} >
-                              <List.Content floated='right'>
-                                <div style={{ width: '35px', margin: '0 auto' }}>
-                                  <WeatherIcon code={dayForecast.code} text={dayForecast.text} />
-                                </div>
-                                <div>
-                                  {
-                                    this.state.unit === 'fahrenheit'
-                                      ? <span>{ dayForecast.high }°F • { dayForecast.low }°F</span>
-                                      : <span>{ this.FtoC(dayForecast.high) }°C • { this.FtoC(dayForecast.low) }°C</span>
-                                  }
-                                </div>
-                              </List.Content>
-                              <List.Content>
-                                <p className='date'>{ dayForecast.date }</p>
-                                <p>{ dayForecast.text }</p>
-                              </List.Content>
-                            </List.Item>
-                          ))
-                        }
-                      </List>
-                    </div>
-                  </Grid.Column>
-                )
+              { this.props.data.forecast && Array.isArray(this.props.data.forecast) &&
+                <Grid.Column mobile={16} tablet={10} computer={10}>
+                  <Forecast forecast={this.props.data.forecast} tempUnit={this.state.tempUnit} />
+                </Grid.Column>
               }
             </Grid.Row>
           </Grid>
@@ -208,16 +159,10 @@ export default class Index extends React.Component {
           .title {
             margin-bottom: 20px;
           }
-          .unit {
+          .tempUnit {
             float: right;
           }
           .location {
-            margin-bottom: 20px;
-          }
-          .condition {
-            margin-bottom: 20px;
-          }
-          .forecast {
             margin-bottom: 20px;
           }
           .footer {
