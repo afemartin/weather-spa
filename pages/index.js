@@ -93,10 +93,6 @@ export default class Index extends React.Component {
     })
   }
 
-  FtoC (temp) {
-    return Math.round((temp - 32) / (9 / 5))
-  }
-
   render () {
     return (
       <div className='container'>

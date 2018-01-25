@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { List } from 'semantic-ui-react'
 
+import Temperature from '../components/temperature'
 import WeatherIcon from '../components/weatherIcon'
 
 import { TEMPERATURE_UNIT_CELSIUS, TEMPERATURE_UNIT_FAHRENHEIT } from '../constants'
@@ -17,10 +18,7 @@ const Forecast = ({ forecast, tempUnit }) => (
               <WeatherIcon code={dayForecast.code} text={dayForecast.text} />
             </div>
             <div>
-              { tempUnit === TEMPERATURE_UNIT_FAHRENHEIT
-                ? <span>{ dayForecast.high }°F • { dayForecast.low }°F</span>
-                : <span>{ this.FtoC(dayForecast.high) }°C • { this.FtoC(dayForecast.low) }°C</span>
-              }
+              <Temperature degrees={dayForecast.high} unit={tempUnit} /> • <Temperature degrees={dayForecast.low} unit={tempUnit} />
             </div>
           </List.Content>
           <List.Content>

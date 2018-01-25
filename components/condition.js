@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Card } from 'semantic-ui-react'
 
+import Temperature from '../components/temperature'
 import WeatherIcon from '../components/weatherIcon'
 
 import { TEMPERATURE_UNIT_CELSIUS, TEMPERATURE_UNIT_FAHRENHEIT } from '../constants'
@@ -21,11 +22,7 @@ const Condition = ({ condition, tempUnit }) => (
           </span>
         </Card.Meta>
         <Card.Description>
-          {
-            tempUnit === TEMPERATURE_UNIT_FAHRENHEIT
-              ? <span>{ condition.temp }°F</span>
-              : <span>{ this.FtoC(condition.temp) }°C</span>
-          }
+          <Temperature degrees={condition.temp} unit={tempUnit} />
         </Card.Description>
       </Card.Content>
     </Card>
@@ -38,7 +35,7 @@ const Condition = ({ condition, tempUnit }) => (
 )
 
 Condition.propTypes = {
-  condition: PropTypes.string.isRequired,
+  condition: PropTypes.object.isRequired,
   tempUnit: PropTypes.oneOf([TEMPERATURE_UNIT_CELSIUS, TEMPERATURE_UNIT_FAHRENHEIT]).isRequired
 }
 
