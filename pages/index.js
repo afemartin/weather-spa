@@ -106,7 +106,7 @@ export default class Index extends React.Component {
     return (
       <div className='container'>
         <Head>
-          <title>Weather SPA</title>
+          <title>Weather SPA {this.props.data.location ? ` - ${this.props.data.location.city}` : null}</title>
           <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css' />
         </Head>
         <div className='header'>
@@ -136,7 +136,7 @@ export default class Index extends React.Component {
             <Grid.Row>
               { this.props.data.condition &&
                 <Grid.Column mobile={16} tablet={6} computer={6}>
-                  <Condition condition={this.props.data.condition} tempUnit={this.state.tempUnit} />
+                  <Condition location={this.props.data.location.city} condition={this.props.data.condition} tempUnit={this.state.tempUnit} />
                 </Grid.Column>
               }
               { this.props.data.forecast && Array.isArray(this.props.data.forecast) &&

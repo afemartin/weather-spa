@@ -7,9 +7,9 @@ import WeatherIcon from '../components/weatherIcon'
 
 import { TEMPERATURE_UNIT_CELSIUS, TEMPERATURE_UNIT_FAHRENHEIT } from '../constants'
 
-const Condition = ({ condition, tempUnit }) => (
+const Condition = ({ location, condition, tempUnit }) => (
   <div className='container'>
-    <h2>Condition</h2>
+    <h2>Weather for {location}</h2>
     <Card>
       <Card.Content>
         <Card.Header>
@@ -35,6 +35,7 @@ const Condition = ({ condition, tempUnit }) => (
 )
 
 Condition.propTypes = {
+  location: PropTypes.string.isRequired,
   condition: PropTypes.object.isRequired,
   tempUnit: PropTypes.oneOf([TEMPERATURE_UNIT_CELSIUS, TEMPERATURE_UNIT_FAHRENHEIT]).isRequired
 }

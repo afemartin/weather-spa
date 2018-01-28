@@ -9,7 +9,7 @@ import { TEMPERATURE_UNIT_CELSIUS, TEMPERATURE_UNIT_FAHRENHEIT } from '../consta
 
 const Forecast = ({ forecast, tempUnit }) => (
   <div className='container'>
-    <h2>Forecast</h2>
+    <h2>Forecast for the next 10 days</h2>
     <List celled>
       { forecast.map(dayForecast =>
         <List.Item key={dayForecast.date} style={{ padding: '5px' }} >
