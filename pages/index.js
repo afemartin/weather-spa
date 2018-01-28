@@ -4,7 +4,7 @@ import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
 import url from 'url'
 
-import { Button, Grid, Input, Form, Message } from 'semantic-ui-react'
+import { Button, Grid, Form, Message } from 'semantic-ui-react'
 
 import Condition from '../components/condition'
 import Forecast from '../components/forecast'
@@ -113,9 +113,10 @@ export default class Index extends React.Component {
         <div className='location'>
           <h2>Location</h2>
           <Form loading={this.props.loading} onSubmit={this.onLocationSubmit}>
-            <Form.Field>
-              <Input name='location' placeholder='Eg. Tokyo' icon='search' defaultValue={this.props.location} onChange={this.onLocationChange} />
-            </Form.Field>
+            <Form.Group>
+              <Form.Input name='location' placeholder='Eg. Tokyo' defaultValue={this.props.location} onChange={this.onLocationChange} />
+              <Form.Button content={this.state.location && this.state.location === this.props.location ? 'Refresh' : 'Search'} disabled={!this.state.location.length > 0} />
+            </Form.Group>
           </Form>
         </div>
         <div className='data'>

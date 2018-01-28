@@ -57,24 +57,41 @@ exports[`(Page) Index renders correctly 1`] = `
       onSubmit={[Function]}
     >
       <div
-        className="field"
+        className="fields"
       >
         <div
-          className="ui icon input"
+          className="field"
         >
-          <input
-            defaultValue={null}
-            disabled={undefined}
-            name="location"
-            onChange={[Function]}
-            placeholder="Eg. Tokyo"
-            tabIndex={undefined}
-            type="text"
-          />
-          <i
-            aria-hidden="true"
-            className="search icon"
-          />
+          <div
+            className="ui input"
+            content={undefined}
+          >
+            <input
+              defaultValue={null}
+              disabled={undefined}
+              name="location"
+              onChange={[Function]}
+              placeholder="Eg. Tokyo"
+              required={undefined}
+              tabIndex={undefined}
+              type="text"
+            />
+          </div>
+        </div>
+        <div
+          className="disabled field"
+        >
+          <button
+            className="ui disabled button"
+            disabled={true}
+            onClick={[Function]}
+            required={undefined}
+            role="button"
+            tabIndex={-1}
+            type={undefined}
+          >
+            Search
+          </button>
         </div>
       </div>
     </form>
