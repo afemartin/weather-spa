@@ -32,31 +32,40 @@ export default class Index extends React.Component {
         env: 'http://datatables.org/alltables.env'
       }
     }
-    const res = await fetch(url.format(apiUrlObject))
-    const data = await res.json()
-    if (data.query.results) {
-      return {
-        location: location,
-        data: {
-          location: data.query.results.channel.location,
-          astronomy: data.query.results.channel.astronomy,
-          atmosphere: data.query.results.channel.atmosphere,
-          wind: data.query.results.channel.wind,
-          condition: data.query.results.channel.item.condition,
-          forecast: data.query.results.channel.item.forecast,
-          geolocation: {
-            lat: data.query.results.channel.item.lat,
-            lng: data.query.results.channel.item.long
-          }
-        },
-        loading: false
+    try {
+      const res = await fetch(url.format(apiUrlObject))
+      const data = await res.json()
+      if (data.query.results) {
+        return {
+          location: location,
+          data: {
+            location: data.query.results.channel.location,
+            astronomy: data.query.results.channel.astronomy,
+            atmosphere: data.query.results.channel.atmosphere,
+            wind: data.query.results.channel.wind,
+            condition: data.query.results.channel.item.condition,
+            forecast: data.query.results.channel.item.forecast,
+            geolocation: {
+              lat: data.query.results.channel.item.lat,
+              lng: data.query.results.channel.item.long
+            }
+          },
+          loading: false
+        }
+      } else {
+        return {
+          location: location,
+          data: {},
+          loading: false,
+          error: `No results found for location search "${location}", please try with another location`
+        }
       }
-    } else {
+    } catch (error) {
       return {
         location: location,
         data: {},
         loading: false,
-        error: `No results found for location search "${location}"`
+        error: `There was some unexpected error when searching for "${location}", please try again.`
       }
     }
   }
