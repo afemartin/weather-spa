@@ -4,7 +4,7 @@ import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
 import url from 'url'
 
-import { Button, Grid, Form, Message } from 'semantic-ui-react'
+import { Button, Dimmer, Grid, Form, Loader, Message } from 'semantic-ui-react'
 
 import Condition from '../components/condition'
 import Forecast from '../components/forecast'
@@ -18,7 +18,6 @@ export default class Index extends React.Component {
       return {
         location: null,
         data: {},
-        loading: false,
         error: null
       }
     }
@@ -49,14 +48,12 @@ export default class Index extends React.Component {
               lat: data.query.results.channel.item.lat,
               lng: data.query.results.channel.item.long
             }
-          },
-          loading: false
+          }
         }
       } else {
         return {
           location: location,
           data: {},
-          loading: false,
           error: `No results found for location search "${location}", please try with another location`
         }
       }
@@ -64,7 +61,6 @@ export default class Index extends React.Component {
       return {
         location: location,
         data: {},
-        loading: false,
         error: `There was some unexpected error when searching for "${location}", please try again.`
       }
     }
@@ -74,7 +70,8 @@ export default class Index extends React.Component {
     super(props)
     this.state = {
       tempUnit: TEMPERATURE_UNIT_FAHRENHEIT,
-      location: props.location || ''
+      location: props.location || '',
+      loading: false
     }
     this.onLocationChange = this.onLocationChange.bind(this)
     this.onLocationSubmit = this.onLocationSubmit.bind(this)
@@ -90,6 +87,9 @@ export default class Index extends React.Component {
     if (!this.state.location) {
       return
     }
+    this.setState({
+      loading: true
+    })
     Router.push({
       pathname: '/',
       query: { q: this.state.location }
@@ -102,9 +102,20 @@ export default class Index extends React.Component {
     })
   }
 
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      loading: false
+    })
+  }
+
   render () {
     return (
       <div className='container'>
+        { this.state.loading && (
+          <Dimmer active page inverted>
+            <Loader inverted size='massive'>Loading</Loader>
+          </Dimmer>
+        )}
         <Head>
           <title>Weather SPA {this.props.data.location ? ` - ${this.props.data.location.city}` : null}</title>
           <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css' />
@@ -121,7 +132,7 @@ export default class Index extends React.Component {
         </div>
         <div className='location'>
           <h2>Location</h2>
-          <Form loading={this.props.loading} onSubmit={this.onLocationSubmit}>
+          <Form onSubmit={this.onLocationSubmit}>
             <Form.Group>
               <Form.Input name='location' placeholder='Eg. Tokyo' defaultValue={this.props.location} onChange={this.onLocationChange} />
               <Form.Button content={this.state.location && this.state.location === this.props.location ? 'Refresh' : 'Search'} disabled={!this.state.location.length > 0} />
