@@ -1,10 +1,11 @@
 {
-  "name": "create-next-example-app",
+  "private": true,
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start",
     "test": "standard && jest",
+    "postinstall": "npm run build",
     "precommit": "npm test",
     "prepush": "npm test"
   },
